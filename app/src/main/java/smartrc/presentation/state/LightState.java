@@ -3,31 +3,26 @@ package smartrc.presentation.state;
 import smartrc.presentation.controller.LightController;
 
 public class LightState implements State {
-    private static LightState singleton = new LightState();
+    private LightController lightController;
 
-    public static LightState getInstance() {
-        return singleton;
+    public LightState(LightController lightController) {
+        this.lightController = lightController;
     }
 
     @Override
-    public void doCommand(Context context, int cmd) {
-        if(cmd == 1){
-            save();
-        } else if(cmd == 9) {
-            context.changeState(HomeState.getInstance());
-        } else {
-            context.changeState(LeaveState.getInstance());
+    public void handle(int cmd) {
+        if(cmd == 1) {
+            lightController.save();
         }
     }
 
     @Override
     public void init() {
-        LightController controller = new LightController();
-        controller.start();
+        lightController.display();
     }
 
-    private void save() {
-        LightController controller = new LightController();
-        controller.save();
+    @Override
+    public String toString() {
+        return "状態：メインライト";
     }
 }

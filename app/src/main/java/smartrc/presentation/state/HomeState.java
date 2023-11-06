@@ -3,24 +3,23 @@ package smartrc.presentation.state;
 import smartrc.presentation.controller.HomeController;
 
 public class HomeState implements State {
-    private static HomeState singleton = new HomeState();
+    private HomeController homeController;
 
-    public static HomeState getInstance() {
-        return singleton;
+    public HomeState(HomeController homeController) {
+        this.homeController = homeController;
     }
-
     @Override
-    public void doCommand(Context context, int cmd) {
-        if(cmd == 1){
-            context.changeState(LightState.getInstance());
-        } else {
-            context.changeState(LeaveState.getInstance());
-        }
+    public void handle(int cmd) {
+        // no-op
     }
 
     @Override
     public void init() {
-        HomeController controller = new HomeController();
-        controller.start();
+        homeController.display();
+    }
+
+    @Override
+    public String toString() {
+        return "状態：ホーム";
     }
 }

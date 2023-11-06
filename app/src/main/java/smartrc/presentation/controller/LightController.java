@@ -14,15 +14,19 @@ import java.io.IOException;
 import smartrc.model.LightModel;
 
 public class LightController implements Controller {
-    private LightService lightService = new LightService();
+    private LightService lightService;
 
     private static final String DATA_DIR = System.getProperty("user.dir") + "/build/resources/main/";
     private static final String LIGHT_CSV = DATA_DIR + "light.csv";
     private static final String CSV_DELIMITER = ",";
     private static final String ERR_MSG = "something went wrong";
 
+    public LightController(LightService lightService) {
+        this.lightService = lightService;
+    }
+
     @Override
-    public void start() {
+    public void display() {
         try {
             LightModel model = lightService.getLight(828);
             View view = new LightView(model);
@@ -53,6 +57,7 @@ public class LightController implements Controller {
         } catch(IOException e) {
             System.out.println(ERR_MSG);
         }
-
+        
+        display();
     }
 }

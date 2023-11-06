@@ -3,20 +3,24 @@ package smartrc.presentation.state;
 import smartrc.presentation.controller.LeaveController;
 
 public class LeaveState implements State {
-    private static LeaveState singleton = new LeaveState();
+    private LeaveController leaveController;
 
-    public static LeaveState getInstance() {
-        return singleton;
+    public LeaveState(LeaveController leaveController) {
+        this.leaveController = leaveController;
     }
 
     @Override
-    public void doCommand(Context context, int cmd) {
+    public void handle(int cmd) {
         // no-op
     }
 
     @Override
     public void init() {
-        LeaveController controller = new LeaveController();
-        controller.start();
+        leaveController.display();
+    }
+
+    @Override
+    public String toString() {
+        return "状態：退出";
     }
 }
