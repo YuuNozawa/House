@@ -1,8 +1,13 @@
 package smartrc.presentation.state;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import smartrc.presentation.controller.LightController;
 
+@Component
 public class LightState implements State {
+    @Autowired
     private LightController lightController;
 
     public LightState(LightController lightController) {

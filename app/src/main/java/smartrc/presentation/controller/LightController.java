@@ -1,19 +1,22 @@
 package smartrc.presentation.controller;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import smartrc.model.LightModel;
 import smartrc.service.LightService;
 import smartrc.view.LightView;
 import smartrc.view.View;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-
-import java.io.IOException;
-
-import smartrc.model.LightModel;
-
+@Component
 public class LightController implements Controller {
+    @Autowired
     private LightService lightService;
 
     private static final String DATA_DIR = System.getProperty("user.dir") + "/build/resources/main/";

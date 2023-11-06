@@ -6,8 +6,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+import org.springframework.stereotype.Component;
+
 import smartrc.model.LightModel;
 
+@Component
 public class LightService {
     private static final String DATA_DIR = System.getProperty("user.dir") + "/build/resources/main/";
     private static final String LIGHT_CSV = DATA_DIR + "light.csv";

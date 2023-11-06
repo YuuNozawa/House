@@ -2,10 +2,17 @@ package smartrc.presentation.state;
 
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class AppContext {
     private State currentState;
+    @Autowired
     private State homeState;
+    @Autowired
     private State lightState;
+    @Autowired
     private State leaveState;
 
     public AppContext(HomeState homeState, LightState lightState, LeaveState leaveState) {

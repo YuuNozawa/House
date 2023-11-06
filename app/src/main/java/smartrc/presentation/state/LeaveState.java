@@ -1,8 +1,13 @@
 package smartrc.presentation.state;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import smartrc.presentation.controller.LeaveController;
 
+@Component
 public class LeaveState implements State {
+    @Autowired
     private LeaveController leaveController;
 
     public LeaveState(LeaveController leaveController) {

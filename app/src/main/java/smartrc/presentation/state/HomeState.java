@@ -1,8 +1,13 @@
 package smartrc.presentation.state;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import smartrc.presentation.controller.HomeController;
 
+@Component
 public class HomeState implements State {
+    @Autowired
     private HomeController homeController;
 
     public HomeState(HomeController homeController) {
