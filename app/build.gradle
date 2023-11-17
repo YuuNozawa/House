@@ -19,12 +19,19 @@ repositories {
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+    
+    // https://mvnrepository.com/artifact/org.mockito/mockito-core
+    testImplementation 'org.mockito:mockito-core:2.1.0'
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
 
     // https://mvnrepository.com/artifact/org.springframework/spring-context
     implementation 'org.springframework:spring-context:6.0.13'
+
+    // https://mvnrepository.com/artifact/org.springframework/spring-core
+    implementation 'org.springframework:spring-core:6.0.13'
+
 
 }
 
@@ -35,6 +42,13 @@ application {
 
 run {
     standardInput = System.in
+}
+
+test {
+    jvmArgs '--add-opens=java.base/java.lang=ALL-UNNAMED'
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+    }
 }
 
 tasks.named('test') {

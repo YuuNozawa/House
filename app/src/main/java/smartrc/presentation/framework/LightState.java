@@ -1,6 +1,9 @@
-package smartrc.presentation.state;
+package smartrc.presentation.framework;
+
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import smartrc.presentation.controller.LightController;
@@ -10,9 +13,9 @@ public class LightState implements State {
     @Autowired
     private LightController lightController;
 
-    public LightState(LightController lightController) {
-        this.lightController = lightController;
-    }
+    @Autowired
+    @Qualifier("lightCmdMap")
+    private Map<Integer, State> cmdMap;
 
     @Override
     public void handle(int cmd) {
@@ -22,12 +25,17 @@ public class LightState implements State {
     }
 
     @Override
-    public void init() {
+    public void display() {
         lightController.display();
     }
 
     @Override
     public String toString() {
         return "状態：メインライト";
+    }
+
+    @Override
+    public State next(int cmd) {
+        return cmdMap.get(cmd);
     }
 }
