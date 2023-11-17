@@ -27,6 +27,7 @@ public class AppContext {
             cmd = sc.nextInt();
             beforeState = currentState;
 
+            // Mapはキーが存在しない場合nullを返す
             if(currentState.next(cmd) != null) {
                 changeState( currentState.next(cmd) );
             }

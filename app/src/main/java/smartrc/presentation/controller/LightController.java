@@ -15,14 +15,19 @@ public class LightController implements Controller {
     @Autowired
     private LightService lightService;
 
-    public LightController(LightService lightService) {
+    @Autowired
+    private final int propsRoomNo;
+
+    public LightController(LightService lightService, int propsRoomNo) {
         this.lightService = lightService;
+        this.propsRoomNo = propsRoomNo;
     }
 
     @Override
     public void display() {
         try {
-            LightModel model = lightService.getLight(828);
+            System.out.println(propsRoomNo);
+            LightModel model = lightService.getLight(propsRoomNo);
             View view = new LightView(model);
             view.show();
         } catch(IOException e) {
@@ -32,7 +37,7 @@ public class LightController implements Controller {
 
     public void save() {
         try {
-            lightService.insert(828);
+            lightService.insert(propsRoomNo);
             display();
         } catch(IOException e) {
             System.out.println("エラーが出ている");
