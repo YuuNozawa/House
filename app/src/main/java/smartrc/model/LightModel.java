@@ -1,6 +1,6 @@
 package smartrc.model;
 
-public class LightModel {
+public class LightModel implements Model {
     private int roomNo;
     private boolean isOn;
 

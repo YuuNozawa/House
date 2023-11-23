@@ -38,6 +38,7 @@ public class AppContext {
             }
             
         }
+        System.out.println("退出済み");
         sc.close();
     }
 }

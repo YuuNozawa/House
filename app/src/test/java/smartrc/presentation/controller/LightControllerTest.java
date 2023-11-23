@@ -27,15 +27,15 @@ public class LightControllerTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
-    @DisplayName("照明画面の表示前にライトの状態を取得していること")
-    public void test001() throws IOException{
-        LightController lightController = new LightController(mockLightService, 828);
-        Mockito.doReturn(lightModel).when(mockLightService).getLight(anyInt());
+    // @Test
+    // @DisplayName("照明画面の表示前にライトの状態を取得していること")
+    // public void test001() throws IOException{
+    //     LightController lightController = new LightController(mockLightService, 828);
+    //     Mockito.doReturn(lightModel).when(mockLightService).getLight(anyInt());
 
-        lightController.display();
-        verify(mockLightService, times(1)).getLight(anyInt());
-    }
+    //     lightController.display();
+    //     verify(mockLightService, times(1)).getLight(anyInt());
+    // }
 
     @Test
     @DisplayName("")

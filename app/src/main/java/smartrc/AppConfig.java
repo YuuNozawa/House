@@ -11,10 +11,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
+import smartrc.presentation.controller.HomeController;
 import smartrc.presentation.framework.HomeState;
 import smartrc.presentation.framework.LeaveState;
 import smartrc.presentation.framework.LightState;
 import smartrc.presentation.framework.State;
+import smartrc.view.home.HomeView;
 
 @Configuration
 @PropertySource(value={"classpath:application.properties"})
@@ -46,4 +48,9 @@ public class AppConfig {
         map.put(9, applicationContext.getBean(HomeState.class));
         return map;
     }
+
+    // @Bean
+    // public HomeController homeController() {
+    //     return new HomeController(applicationContext.getBean(HomeView.class));
+    // }
 }
