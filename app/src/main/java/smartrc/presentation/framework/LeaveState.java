@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import smartrc.presentation.controller.LeaveController;
 
 @Component
-public class LeaveState implements State {
+public class LeaveState implements IState {
     @Autowired
     private LeaveController leaveController;
 
@@ -26,7 +26,7 @@ public class LeaveState implements State {
     }
 
     @Override
-    public State next(int cmd) {
+    public IState next(int cmd) {
         return null;
     }
 }

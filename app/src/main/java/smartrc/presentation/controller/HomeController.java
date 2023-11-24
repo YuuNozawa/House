@@ -4,16 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import smartrc.view.View;
+import smartrc.view.IView;
 
 @Component
-public class HomeController implements Controller {
+public class HomeController {
     
     @Autowired
     @Qualifier("HomeView")
-    private View view;
+    private IView view;
     
-    @Override
     public void display() {
         view.show();
     }

@@ -7,12 +7,12 @@ import org.springframework.stereotype.Component;
 import smartrc.view.IView;
 
 @Component
-public class LeaveController {
+public class ErrorController {
     
     @Autowired
-    @Qualifier("LeaveView")
+    @Qualifier("ErrorView")
     private IView view;
-
+    
     public void display() {
         view.show();
     }

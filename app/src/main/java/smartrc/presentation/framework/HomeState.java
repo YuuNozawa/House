@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 import smartrc.presentation.controller.HomeController;
 
 @Component
-public class HomeState implements State {
+public class HomeState implements IState {
     @Autowired
     private HomeController homeController;
 
     @Autowired
     @Qualifier("homeCmdMap")
-    private Map<Integer, State> cmdMap;
+    private Map<Integer, IState> cmdMap;
 
     @Override
     public void handle(int cmd) {
@@ -33,7 +33,7 @@ public class HomeState implements State {
     }
 
     @Override
-    public State next(int cmd) {
+    public IState next(int cmd) {
         return cmdMap.get(cmd);
     }
 }

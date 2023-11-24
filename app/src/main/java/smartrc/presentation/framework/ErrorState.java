@@ -6,33 +6,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import smartrc.presentation.controller.LightController;
+import smartrc.presentation.controller.ErrorController;
 
 @Component
-public class LightState implements IState {
+public class ErrorState implements IState {
     @Autowired
-    private LightController lightController;
+    private ErrorController errorController;
 
     @Autowired
-    @Qualifier("lightCmdMap")
+    @Qualifier("errorCmdMap")
     private Map<Integer, IState> cmdMap;
 
     @Override
-    public void handle(int cmd) throws Exception {
-        if(cmd == 1) {
-            lightController.save();
-        }
-        lightController.display();
+    public void handle(int cmd) {
+        // no-op
     }
 
     @Override
-    public void display() throws Exception {
-        lightController.display();
+    public void display() {
+        errorController.display();
+        System.out.println("エラー発生！");
     }
 
     @Override
     public String toString() {
-        return "状態：メインライト";
+        return "状態：エラー";
     }
 
     @Override

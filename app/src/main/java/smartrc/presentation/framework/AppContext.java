@@ -6,39 +6,51 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AppContext {
-    private State currentState;
+    private static final int ERR_CD = 999;
+
+    private IState currentState;
 
     public AppContext(HomeState homeState) {
-        currentState = homeState;
-        currentState.display();
+        changeState(homeState);
+        tryDisplay();
     }
 
-    private void changeState(State state) {
+    private void changeState(IState state) {
         currentState = state;
-        currentState.display();
+    }
+
+    private void tryDisplay() {
+        try {
+            System.out.println(currentState);
+            currentState.display();
+        } catch(Exception e) {
+            changeState( currentState.next(ERR_CD) );
+            tryDisplay();
+        }
+    }
+
+    private void tryHandle(int cmd) {
+        try {
+            currentState.handle(cmd);
+        } catch(Exception e) {
+            changeState( currentState.next(ERR_CD) );
+            tryDisplay();
+        }
     }
 
     public void interact() {
         Scanner sc = new Scanner(System.in);
-        
         int cmd = 0;
-        State beforeState = null;
         while( !(currentState instanceof LeaveState) ) {
             cmd = sc.nextInt();
-            beforeState = currentState;
-
-            // Mapはキーが存在しない場合nullを返す
             if(currentState.next(cmd) != null) {
                 changeState( currentState.next(cmd) );
+                tryDisplay();
+            } else {
+                // Mapはキー(Command)が存在しない場合nullを返す
+                tryHandle(cmd);
             }
-
-            // 状態の変更が発生しない場合は状態の処理
-            if(beforeState == currentState) {
-                currentState.handle(cmd);
-            }
-            
         }
-        System.out.println("退出済み");
         sc.close();
     }
 }

@@ -6,23 +6,16 @@ import org.springframework.stereotype.Component;
 
 import smartrc.model.Model;
 import smartrc.view.AppFrame;
-import smartrc.view.View;
-import smartrc.view.home.HomePanel;
+import smartrc.view.IView;
 
 @Component
 @Qualifier("LeaveView")
-public class LeaveView implements View {
+public class LeaveView implements IView {
     @Autowired
     private AppFrame appFrame;
     public void show() {
         LeavePanel leavePanel = new LeavePanel();
         appFrame.next(leavePanel);
-        
-        // System.out.println("+------------------+");
-        // System.out.println("|                  |");
-        // System.out.println("|    take care.    |");
-        // System.out.println("|                  |");
-        // System.out.println("+------------------+");
     }
     
     public void setModel(Model model) {

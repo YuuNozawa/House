@@ -1,4 +1,4 @@
-package smartrc.view.home;
+package smartrc.view.error;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,17 +9,18 @@ import smartrc.view.AppFrame;
 import smartrc.view.IView;
 
 @Component
-@Qualifier("HomeView")
-public class HomeView implements IView {
+@Qualifier("ErrorView")
+public class ErrorView implements IView {
     @Autowired
     private AppFrame appFrame;
 
     public void show() {
-        HomePanel homePanel = new HomePanel();
-        appFrame.next(homePanel);
+        // TODO: エラー時にエラーと出すだけで部屋の操作全般できなくなるのは普通にやばい
+        ErrorPanel errorPanel = new ErrorPanel();
+        appFrame.next(errorPanel);
     }
     
     public void setModel(Model model) {
-        // no-op
+        //no-op
     }
 }
