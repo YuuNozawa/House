@@ -1,17 +1,19 @@
 package smartrc.view;
 
+import java.beans.ConstructorProperties;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
 @Component
 public class AppFrame extends JFrame {
-    @Autowired
-    private int propsRoomNo;
+    @SuppressWarnings("unused")
+    private final int propsRoomNo;
 
+    @ConstructorProperties({"propsRoomNo"})
     public AppFrame(int propsRoomNo) {
         this.propsRoomNo = propsRoomNo;
         this.setTitle("Room " + String.valueOf(propsRoomNo));

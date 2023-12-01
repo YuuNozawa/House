@@ -5,11 +5,14 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.core.env.Environment;
 
 import smartrc.presentation.framework.ErrorState;
 import smartrc.presentation.framework.HomeState;
@@ -23,12 +26,26 @@ public class AppConfig {
     @Autowired
     ApplicationContext applicationContext;
 
-    @Value("${roomNo}")
-    private int propsRoomNo;
+    @Autowired
+    Environment env;
     
     @Bean
     public int propsRoomNo(){
-        return propsRoomNo;
+        return Integer.valueOf(env.getProperty("roomNo"));
+    }
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        // Spring Boot 未使用のため必要
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+
+    @Bean
+    public MessageSource messageSource() {
+        ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+        messageSource.setBasename("messages");
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
     }
 
     @Bean

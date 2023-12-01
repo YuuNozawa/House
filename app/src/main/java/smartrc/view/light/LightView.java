@@ -12,13 +12,18 @@ import smartrc.view.IView;
 @Component
 @Qualifier("LightView")
 public class LightView implements IView {
-    @Autowired
     private AppFrame appFrame;
-
+    private LightPanel lightPanel;
     private LightModel model;
 
+    @Autowired
+    public LightView(AppFrame appFrame, LightPanel lightPanel) {
+        this.appFrame = appFrame;
+        this.lightPanel = lightPanel;
+    }
+
     public void show() {
-        LightPanel lightPanel = new LightPanel(model);
+        lightPanel.render(model);
         appFrame.next(lightPanel);
     }
 

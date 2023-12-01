@@ -19,7 +19,10 @@ public class HomeState implements IState {
 
     @Override
     public void handle(int cmd) {
-        // no-op
+        if(cmd == 0) {
+            homeController.changeLanguage();
+        }
+        homeController.display();
     }
 
     @Override

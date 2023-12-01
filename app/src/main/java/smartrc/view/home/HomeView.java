@@ -11,11 +11,17 @@ import smartrc.view.IView;
 @Component
 @Qualifier("HomeView")
 public class HomeView implements IView {
-    @Autowired
     private AppFrame appFrame;
+    private HomePanel homePanel;
+
+    @Autowired
+    public HomeView(AppFrame appFrame, HomePanel homePanel) {
+        this.appFrame = appFrame;
+        this.homePanel = homePanel;
+    }
 
     public void show() {
-        HomePanel homePanel = new HomePanel();
+        homePanel.render();
         appFrame.next(homePanel);
     }
     

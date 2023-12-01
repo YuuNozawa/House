@@ -1,7 +1,6 @@
 package smartrc.view.error;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.Box;
@@ -9,22 +8,31 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class ErrorPanel extends JPanel {
-    public ErrorPanel() {
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-        JLabel lbl = new JLabel("SYSTEM ERROR");
-        JLabel lbl2 = new JLabel("Apologies for the inconvenience.");
-        JLabel lbl3 = new JLabel("An Error occured during the operation.");
-        JLabel lbl4 = new JLabel("Press 0 to return to the home screen.");
-        lbl.setForeground(Color.RED);
-        lbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-        lbl2.setAlignmentX(Component.CENTER_ALIGNMENT);
-        lbl3.setAlignmentX(Component.CENTER_ALIGNMENT);
-        lbl4.setAlignmentX(Component.CENTER_ALIGNMENT);
+import smartrc.service.MessageService;
+
+@Component
+public class ErrorPanel extends JPanel {
+    private final MessageService ms;
+    private final JLabel lbl1 = new JLabel();
+    private final JLabel lbl2 = new JLabel();
+    private final JLabel lbl3 = new JLabel();
+    private final JLabel lbl4 = new JLabel();
+    
+    @Autowired
+    public ErrorPanel(MessageService ms) {
+        this.ms = ms;
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        lbl1.setForeground(Color.RED);
+        lbl1.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        lbl2.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        lbl3.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
+        lbl4.setAlignmentX(java.awt.Component.CENTER_ALIGNMENT);
 
         this.add(Box.createVerticalGlue());
-        this.add(lbl);
+        this.add(lbl1);
         this.add(Box.createRigidArea(new Dimension(0, 15)));
         this.add(lbl2);
         this.add(Box.createRigidArea(new Dimension(0, 3)));
@@ -32,5 +40,12 @@ public class ErrorPanel extends JPanel {
         this.add(Box.createRigidArea(new Dimension(0, 3)));
         this.add(lbl4);
         this.add(Box.createVerticalGlue());
+    }
+
+    public void render() {
+        lbl1.setText(ms.getMessage("error.label.1", null));
+        lbl2.setText(ms.getMessage("error.label.2", null));
+        lbl3.setText(ms.getMessage("error.label.3", null));
+        lbl4.setText(ms.getMessage("error.label.4", null));
     }
 }

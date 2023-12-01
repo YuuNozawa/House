@@ -14,9 +14,12 @@ public class ErrorView implements IView {
     @Autowired
     private AppFrame appFrame;
 
+    @Autowired
+    ErrorPanel errorPanel;
+
     public void show() {
         // TODO: エラー時にエラーと出すだけで部屋の操作全般できなくなるのは普通にやばい
-        ErrorPanel errorPanel = new ErrorPanel();
+        errorPanel.render();
         appFrame.next(errorPanel);
     }
     

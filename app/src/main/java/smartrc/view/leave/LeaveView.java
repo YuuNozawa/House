@@ -11,10 +11,17 @@ import smartrc.view.IView;
 @Component
 @Qualifier("LeaveView")
 public class LeaveView implements IView {
-    @Autowired
     private AppFrame appFrame;
+    private LeavePanel leavePanel;
+
+    @Autowired
+    public LeaveView(AppFrame appFrame, LeavePanel leavePanel) {
+        this.appFrame = appFrame;
+        this.leavePanel = leavePanel;
+    }
+
     public void show() {
-        LeavePanel leavePanel = new LeavePanel();
+        leavePanel.render();
         appFrame.next(leavePanel);
     }
     

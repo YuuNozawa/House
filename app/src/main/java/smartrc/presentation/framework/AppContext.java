@@ -24,6 +24,7 @@ public class AppContext {
             System.out.println(currentState);
             currentState.display();
         } catch(Exception e) {
+            System.out.println(e.getMessage());
             changeState( currentState.next(ERR_CD) );
             tryDisplay();
         }
@@ -33,6 +34,7 @@ public class AppContext {
         try {
             currentState.handle(cmd);
         } catch(Exception e) {
+            System.out.println(e.getMessage());
             changeState( currentState.next(ERR_CD) );
             tryDisplay();
         }
