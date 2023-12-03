@@ -74,9 +74,4 @@ public class AppConfig {
         map.put(0, applicationContext.getBean(HomeState.class));
         return map;
     }
-
-    // @Bean
-    // public HomeController homeController() {
-    //     return new HomeController(applicationContext.getBean(HomeView.class));
-    // }
 }

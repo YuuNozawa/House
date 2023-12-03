@@ -1,0 +1,12 @@
+version: '3.1'
+services:
+  mysql:
+    image: mysql
+    build: ${PWD}/docker/mysql
+    volumes: 
+      - ${PWD}/docker/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: room
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
