@@ -1,13 +1,15 @@
 package smartrc.presentation.framework;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 import org.springframework.stereotype.Component;
 
+import smartrc.presentation.framework.state.HomeState;
+import smartrc.presentation.framework.state.IState;
+
 @Component
 public class AppContext {
-    private static final int ERR_CD = 999;
-
     private IState currentState;
 
     public AppContext(HomeState homeState) {
@@ -25,33 +27,38 @@ public class AppContext {
             currentState.display();
         } catch(Exception e) {
             System.out.println(e.getMessage());
-            changeState( currentState.next(ERR_CD) );
-            tryDisplay();
+            // changeState( currentState.next(ECommand.ERROR.getCommand()) );
+            // tryDisplay();
         }
     }
 
-    private void tryHandle(int cmd) {
+    // Commandに紐づくActionを実行し、次の状態がある場合は状態を変更
+    private void tryNext(Command cmd) {
         try {
-            currentState.handle(cmd);
+            currentState.next(cmd).ifPresent(state -> { 
+                changeState(state);
+                tryDisplay();
+            });
         } catch(Exception e) {
             System.out.println(e.getMessage());
-            changeState( currentState.next(ERR_CD) );
-            tryDisplay();
+            // changeState( currentState.next(ECommand.ERROR.getCommand()) );
+            // tryDisplay();
         }
     }
 
     public void interact() {
         Scanner sc = new Scanner(System.in);
-        int cmd = 0;
+        
         while( !(currentState instanceof LeaveState) ) {
-            cmd = sc.nextInt();
-            if(currentState.next(cmd) != null) {
-                changeState( currentState.next(cmd) );
-                tryDisplay();
-            } else {
-                // Mapはキー(Command)が存在しない場合nullを返す
-                tryHandle(cmd);
-            }
+            Command cmd = new Command(sc.nextInt());
+            tryNext(cmd);
+            // if(currentState.next(cmd) != null) {
+            //     changeState( currentState.next(cmd) );
+            //     tryDisplay();
+            // } else {
+            //     // Mapはキー(Command)が存在しない場合nullを返す
+            //     tryNext(cmd);
+            // }
         }
         sc.close();
     }

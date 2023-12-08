@@ -17,18 +17,15 @@ public class LightController {
     @Qualifier("LightView")
     private IView view;
 
-    @Autowired
-    private int propsRoomNo;
-
     public void display() throws Exception {
         // if(true) { throw new Exception("エラーの動作確認");}
-        LightModel model = lightService.getLight(propsRoomNo);
+        LightModel model = lightService.getLight();
         view.setModel(model);
         view.show();
     }
 
     public void save() throws Exception {
-        lightService.insert(propsRoomNo);
+        lightService.update();
         display();
     }
 }

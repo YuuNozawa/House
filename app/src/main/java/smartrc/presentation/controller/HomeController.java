@@ -23,5 +23,6 @@ public class HomeController {
 
     public void changeLanguage() {
         ms.setMessage();
+        display();
     }
 }

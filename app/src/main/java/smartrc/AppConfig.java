@@ -14,17 +14,18 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 
-import smartrc.presentation.framework.ErrorState;
-import smartrc.presentation.framework.HomeState;
-import smartrc.presentation.framework.IState;
+import smartrc.presentation.framework.Command;
 import smartrc.presentation.framework.LeaveState;
-import smartrc.presentation.framework.LightState;
+import smartrc.presentation.framework.state.ErrorState;
+import smartrc.presentation.framework.state.HomeState;
+import smartrc.presentation.framework.state.IState;
+import smartrc.presentation.framework.state.LightState;
 
 @Configuration
 @PropertySource(value={"classpath:application.properties"})
 public class AppConfig {
-    @Autowired
-    ApplicationContext applicationContext;
+    // @Autowired
+    // ApplicationContext applicationContext;
 
     @Autowired
     Environment env;
@@ -48,30 +49,30 @@ public class AppConfig {
         return messageSource;
     }
 
-    @Bean
-    @Qualifier("homeCmdMap")
-    public Map<Integer, IState> map1() {
-        Map<Integer, IState> map = new HashMap<>();
-        map.put(1, applicationContext.getBean(LightState.class));
-        map.put(9, applicationContext.getBean(LeaveState.class));
-        map.put(999, applicationContext.getBean(ErrorState.class));
-        return map;
-    }
+    // @Bean
+    // @Qualifier("homeCmdMap")
+    // public Map<Command, IState> map1() {
+    //     Map<Command, IState> map = new HashMap<>();
+    //     map.put(new Command(1), applicationContext.getBean(LightState.class));
+    //     map.put(new Command(9), applicationContext.getBean(LeaveState.class));
+    //     map.put(new Command(999), applicationContext.getBean(ErrorState.class));
+    //     return map;
+    // }
 
-    @Bean
-    @Qualifier("lightCmdMap")
-    public Map<Integer, IState> map2() {
-        Map<Integer, IState> map = new HashMap<>();
-        map.put(9, applicationContext.getBean(HomeState.class));
-        map.put(999, applicationContext.getBean(ErrorState.class));
-        return map;
-    }
+    // @Bean
+    // @Qualifier("lightCmdMap")
+    // public Map<Command, IState> map2() {
+    //     Map<Command, IState> map = new HashMap<>();
+    //     map.put(new Command(9), applicationContext.getBean(HomeState.class));
+    //     map.put(new Command(999), applicationContext.getBean(ErrorState.class));
+    //     return map;
+    // }
 
-    @Bean
-    @Qualifier("errorCmdMap")
-    public Map<Integer, IState> map3() {
-        Map<Integer, IState> map = new HashMap<>();
-        map.put(0, applicationContext.getBean(HomeState.class));
-        return map;
-    }
+    // @Bean
+    // @Qualifier("errorCmdMap")
+    // public Map<Command, IState> map3() {
+    //     Map<Command, IState> map = new HashMap<>();
+    //     map.put(new Command(0), applicationContext.getBean(HomeState.class));
+    //     return map;
+    // }
 }

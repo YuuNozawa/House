@@ -2,6 +2,8 @@ version: '3.1'
 services:
   mysql:
     image: mysql
+    ports: 
+      - 3306:3306
     build: ${PWD}/docker/mysql
     volumes: 
       - ${PWD}/docker/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
