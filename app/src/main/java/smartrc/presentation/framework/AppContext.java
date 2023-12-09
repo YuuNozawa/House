@@ -1,18 +1,24 @@
 package smartrc.presentation.framework;
 
-import java.util.Optional;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import smartrc.presentation.framework.state.ErrorState;
 import smartrc.presentation.framework.state.HomeState;
 import smartrc.presentation.framework.state.IState;
+import smartrc.presentation.framework.state.LeaveState;
+import smartrc.presentation.framework.state.StateFactory;
 
 @Component
 public class AppContext {
     private IState currentState;
+    private StateFactory stateFactory;
 
-    public AppContext(HomeState homeState) {
+    @Autowired
+    public AppContext(HomeState homeState, StateFactory stateFactory) {
+        this.stateFactory = stateFactory;
         changeState(homeState);
         tryDisplay();
     }
@@ -27,8 +33,8 @@ public class AppContext {
             currentState.display();
         } catch(Exception e) {
             System.out.println(e.getMessage());
-            // changeState( currentState.next(ECommand.ERROR.getCommand()) );
-            // tryDisplay();
+            changeState( stateFactory.createState(ErrorState.class).get() );
+            tryDisplay();
         }
     }
 
@@ -41,24 +47,15 @@ public class AppContext {
             });
         } catch(Exception e) {
             System.out.println(e.getMessage());
-            // changeState( currentState.next(ECommand.ERROR.getCommand()) );
-            // tryDisplay();
+            changeState( stateFactory.createState(ErrorState.class).get() );
+            tryDisplay();
         }
     }
 
     public void interact() {
         Scanner sc = new Scanner(System.in);
-        
         while( !(currentState instanceof LeaveState) ) {
-            Command cmd = new Command(sc.nextInt());
-            tryNext(cmd);
-            // if(currentState.next(cmd) != null) {
-            //     changeState( currentState.next(cmd) );
-            //     tryDisplay();
-            // } else {
-            //     // Mapはキー(Command)が存在しない場合nullを返す
-            //     tryNext(cmd);
-            // }
+            tryNext( new Command(sc.nextInt()) );
         }
         sc.close();
     }

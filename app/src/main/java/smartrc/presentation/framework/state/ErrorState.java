@@ -10,13 +10,13 @@ import org.springframework.stereotype.Component;
 import smartrc.presentation.controller.ErrorController;
 import smartrc.presentation.framework.Command;
 import smartrc.presentation.framework.IAction;
-import smartrc.presentation.framework.StateFactory;
 
 @Component
 public class ErrorState implements IState {
-    private ErrorController errorController;
-    private StateFactory stateFactory;
-    private Map<Command, IAction> cmdMap;
+    @SuppressWarnings("unused")
+    private final StateFactory stateFactory;
+    private final ErrorController errorController;
+    private final Map<Command, IAction> cmdMap;
 
     @Autowired
     public ErrorState(ErrorController errorController, StateFactory stateFactory) {
@@ -31,7 +31,6 @@ public class ErrorState implements IState {
     @Override
     public void display() {
         errorController.display();
-        System.out.println("エラー発生！");
     }
 
     @Override
@@ -41,6 +40,7 @@ public class ErrorState implements IState {
 
     @Override
     public Optional<IState> next(Command cmd) throws Exception {
-        return cmdMap.get(cmd).execute();
+        if(cmdMap.containsKey(cmd)) return cmdMap.get(cmd).execute();
+        return Optional.empty();
     }
 }

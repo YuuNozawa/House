@@ -1,7 +1,7 @@
 package smartrc.presentation.framework;
 
 public class Command {
-    Integer value;
+    private Integer value;
     
     public Command(int value) {
         this.value = value;

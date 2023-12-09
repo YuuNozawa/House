@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MessageService {
-    MessageSource ms;
+    private final MessageSource ms;
 
     @Autowired
     public MessageService(MessageSource ms) {

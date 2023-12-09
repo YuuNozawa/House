@@ -10,14 +10,13 @@ import org.springframework.stereotype.Component;
 import smartrc.presentation.controller.HomeController;
 import smartrc.presentation.framework.Command;
 import smartrc.presentation.framework.IAction;
-import smartrc.presentation.framework.LeaveState;
-import smartrc.presentation.framework.StateFactory;
 
 @Component
 public class HomeState implements IState {
-    private HomeController homeController;
-    private StateFactory stateFactory;
-    private Map< Command, IAction> cmdMap;
+    @SuppressWarnings("unused")
+    private final StateFactory stateFactory;
+    private final HomeController homeController;
+    private final Map< Command, IAction> cmdMap;
 
     @Autowired
     public HomeState(HomeController homeController, StateFactory stateFactory) {
@@ -31,10 +30,8 @@ public class HomeState implements IState {
         } );
         cmdMap.put(new Command(1), () -> stateFactory.createState(LightState.class));
         cmdMap.put(new Command(9), () -> stateFactory.createState(LeaveState.class));
-        cmdMap.put(new Command(999), () -> stateFactory.createState(ErrorState.class));
 
         this.cmdMap = cmdMap;
-        System.out.println("constructor end");
     }
 
     @Override
@@ -49,6 +46,7 @@ public class HomeState implements IState {
 
     @Override
     public Optional<IState> next(Command cmd) throws Exception {
-        return cmdMap.get(cmd).execute();
+        if(cmdMap.containsKey(cmd)) return cmdMap.get(cmd).execute();
+        return Optional.empty();
     }
 }

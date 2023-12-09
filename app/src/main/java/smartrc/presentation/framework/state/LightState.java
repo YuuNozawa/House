@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 import smartrc.presentation.controller.LightController;
 import smartrc.presentation.framework.Command;
 import smartrc.presentation.framework.IAction;
-import smartrc.presentation.framework.StateFactory;
 
 @Component
 public class LightState implements IState {
-    private final LightController lightController;
+    @SuppressWarnings("unused")
     private final StateFactory stateFactory;
+    private final LightController lightController;
     private final Map<Command, IAction> cmdMap;
 
     @Autowired
@@ -29,7 +29,6 @@ public class LightState implements IState {
             return Optional.empty();
         });
         cmdMap.put(new Command(9), () -> stateFactory.createState(HomeState.class));
-        cmdMap.put(new Command(999), () -> stateFactory.createState(ErrorState.class));
         
         this.cmdMap = cmdMap;
     }
@@ -46,6 +45,7 @@ public class LightState implements IState {
 
     @Override
     public Optional<IState> next(Command cmd) throws Exception {
-        return cmdMap.get(cmd).execute();
+        if(cmdMap.containsKey(cmd)) return cmdMap.get(cmd).execute();
+        return Optional.empty();
     }
 }

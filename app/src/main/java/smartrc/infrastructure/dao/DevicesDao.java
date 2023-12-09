@@ -44,19 +44,4 @@ public class DevicesDao {
             throw new RuntimeException(e);
         }
     }
-
-    // private List<LightModel> resultSet2LightModels(ResultSet rs) throws SQLException {
-    //     List<LightModel> list = new ArrayList<>();
-    //     while(rs.next()) {
-    //         list.add( resultSet2LightModel(rs) );
-    //     }
-    //     return list;
-    // }
-    // private LightModel resultSet2LightModel(ResultSet rs) throws SQLException {
-    //     int roomNo = rs.getInt(1);
-    //     // String deviceId = rs.getString(2);
-    //     boolean isOn = rs.getBoolean(3);
-        
-    //     return new LightModel(roomNo, isOn);
-    // }
 }
